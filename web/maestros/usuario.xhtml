@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Crear Cuenta</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
+        <!--<link href="../../resources/TEMAS_LEGAJO/TEMAS3.css" rel="stylesheet" type="text/css"/>-->
+        <link href="../resources/TEMPLATE/bower_components/bootstrap/dist/css/TEMAS2.css" rel="stylesheet" type="text/css"/>
+        <link href="../resources/TEMPLATE/bower_components/bootstrap/dist/css/botones.css" rel="stylesheet" type="text/css"/>
+        <link href="../resources/TEMPLATE/bower_components/bootstrap/dist/css/TEMAS1.css" rel="stylesheet" type="text/css"/>
+        <link href="../resources/css/TABLE.css" rel="stylesheet" type="text/css"/>
+
+
+
+    </h:head>
+    <h:body>
+        <center><h3>CREA UNA CUENTA DE USUARIO</h3></center>
+        <h:form id="FormMedico">
+            <p:growl id="msg" life="1500" autoUpdate="true"/>
+
+            <center><p:panel id="toggleable" header="Registro" toggleable="true" toggleSpeed="500" widgetVar="panel" class="ui-widget-header table" style="width: 500px;margin-bottom:20px; background: white;-webkit-linear-gradient(top,#156090 0,#186ba0 100%);">
+
+                    <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank">
+                        <p:outputLabel value="NOMBRES:" />
+                        <p:inputText value="#{administradorC.administrador.TRABAJADOR_NOMBRE}" style="width: 250px"/> 
+                        <p:outputLabel value="APELLIDOS:" />
+                        <p:inputText value="#{administradorC.administrador.TRABAJADOR_APELLIDO}" style="width: 250px"/> 
+                        <p:outputLabel value="DNI:" />
+                        <p:inputText value="#{administradorC.administrador.TRABAJADOR_DNI}" style="width: 250px"/> 
+                        <p:outputLabel value="DIRECCIÓN:" />
+                        <p:inputText value="#{administradorC.administrador.TRABAJADOR_DIRECCION}" style="width: 250px"/> 
+                        <p:outputLabel value="CELULAR:" />
+                        <p:inputText value="#{administradorC.administrador.TRABAJADOR_CELULAR}" style="width: 250px"/> 
+                        <p:outputLabel value="TIPO:" />
+                        <p:selectOneRadio value="#{administradorC.administrador.TRABAJADOR_TIPO}" layout="grid" columns="2">
+                            <f:selectItem itemLabel="Administrador" itemValue="A"/>
+                            <f:selectItem itemLabel="Ciente" itemValue="C"/>
+                        </p:selectOneRadio> 
+                        <p:outputLabel value="USUARIO:" />
+                        <p:inputText value="#{administradorC.administrador.TRABAJADOR_USUARIO}" style="width: 250px"/> 
+                        <p:outputLabel value="CONTRASEÑA:" />
+                        <p:inputText value="#{administradorC.administrador.TRABAJADOR_PASS}" style="width: 250px"/> 
+
+                    </p:panelGrid>
+
+                    <br/>
+                    <center>
+                        <p:panelGrid columns="1" styleClass="ui-panelgrid-blank">
+                            <p:commandButton id="btn_agregar" style="width: 200px" value="AGREGAR" actionListener="#{administradorC.registrar()}" update="FrmAgregarCentro FrmListarCentro"/>
+                        </p:panelGrid>  
+                    </center>
+                </p:panel></center>
+
+        </h:form>
+
+
+        <h:form id="FormTblMedico">
+            <p:dataTable id="tblMedico" 
+                         var="log"
+                         style="display: none;"
+                         value="#{LoginC.lstUsuario}"
+
+                         >
+
+                <p:column headerText="USUARIO">
+                    <h:outputText value="#{log.usuario}"/>
+                </p:column>
+                <p:column headerText="PASSWORD">
+                    <h:outputText value="#{log.pass}"/>
+                </p:column>
+                <p:column headerText="NOMBRE">
+                    <h:outputText value="#{log.nombre}"/>
+                </p:column>
+                <p:column headerText="NIVEL">
+                    <h:outputText value="#{log.nivel}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:contextMenu for="tblMedico">
+                <p:menuitem value="MODIFICAR" oncomplete="PF('dloModMedico').show()" update=":FormDialog"/>
+                <p:menuitem value="ELIMINAR" actionListener="#{LoginC.eliminar(log)}" update="tblMedico">
+                    <p:confirm header="CONFIRMACIÓN" message="¿Está seguro de eliminar este registro?"/>
+                </p:menuitem>
+            </p:contextMenu>
+        </h:form>
+
+
+
+        <p:dialog showEffect="explode" modal="true" hideEffect="explode" header="ACTUALIZAR DATOS" widgetVar="dloModMedico" resizable="false">
+            <h:form id="FormDialog">
+                <h:panelGrid columns="2">
+                    <p:outputLabel value="USUARIO:"/>
+                    <h:inputText value="#{LoginC.usuario.usuario}" maxlength="50" >
+                        <p:keyFilter regEx="/[a-z/A-Z/ ]/"/>
+                    </h:inputText>
+                    <p:outputLabel for="pwd1" value="PASSWORD:" />
+                    <p:password id="pwd1" value="#{LoginC.usuario.pass}" feedback="true" inline="true" match="pwd2" label="Password 1" requiredMessage="INGRESE PASSWORD" required="true"/>
+
+                    <p:outputLabel for="pwd2" value="CONFIRMAR PASSWORD:" ></p:outputLabel>
+                    <p:password id="pwd2" value="#{LoginC.usuario.pass}" feedback="true" inline="true" label="Password 2" required="true" requiredMessage="INGRESE CONFIRMACION PASSWORD"/>
+
+                    <p:outputLabel value="NOMBRES:"/>
+                    <p:inputText value="#{LoginC.usuario.nombre}" placeholder="DNI" maxlength="8" style="text-transform: uppercase">
+                        <p:keyFilter regEx="/[0-9]/"/>
+                    </p:inputText>
+                    <p:outputLabel value="NIVEL:"   />
+                    <p:selectOneRadio id="Sexo" value="#{LoginC.usuario.nivel}" required="true" requiredMessage="INGRESE NIVEL">
+                        <f:selectItem itemLabel="ADMINISTRADOR" itemValue="admin"/>
+                        <f:selectItem itemLabel="USUARIO" itemValue="user"/>
+                    </p:selectOneRadio>
+
+                    <p:commandLink class="button button2" value="MODIFICAR" actionListener="#{LoginC.modificar()}" update=":FormTblMedico:tblMedico" oncomplete="PF('dloModMedico').hide()"/>
+                    <p:commandLink class="button button2" value="CANCELAR" oncomplete="PF('dloModMedico').hide()"/>
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+
+        <h:form>
+            <p:confirmDialog global="true" >
+                <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes"/>
+                <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no"/>
+            </p:confirmDialog>
+        </h:form>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </h:body>
+</html>
+

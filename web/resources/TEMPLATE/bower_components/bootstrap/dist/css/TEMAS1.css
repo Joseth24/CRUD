@@ -1,0 +1,11 @@
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    border-color: #ccc;
+        border-color: #c7f2e3 #00aced #00aced;
+}
+
+table {
+    /*width: 100%;*/
+    /*display: table;*/
+    /* border-collapse: collapse; */
+    border-spacing: 0;
+}

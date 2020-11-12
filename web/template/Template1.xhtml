@@ -1,0 +1,250 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <title>GREEN PARK</title>
+        <link rel="icon" type="image/png" href="../../resources/icon/RED.ico"/>
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+
+
+
+
+
+        <link href="../../resources/TEMPLATE/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../../resources/TEMPLATE/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../../resources/TEMPLATE/bower_components/Ionicons/css/ionicons.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../../resources/TEMPLATE/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../../resources/TEMPLATE/dist/css/skins/skin-blue.min.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
+        <!--<link href="../../resources/TEMAS_LEGAJO/TEMAS.css" rel="stylesheet" type="text/css"/>-->
+
+
+        <link href="../resources/TEMPLATE/bower_components/bootstrap/dist/css/TEMAS1.css" rel="stylesheet" type="text/css"/>
+        <link href="../resources/TEMPLATE/bower_components/bootstrap/dist/css/TEMAS2.css" rel="stylesheet" type="text/css"/>
+        <link href="../resources/TEMPLATE/bower_components/bootstrap/dist/css/TEMAS3.css" rel="stylesheet" type="text/css"/>
+        <link href="../resources/TEMPLATE/bower_components/bootstrap/dist/css/botones.css" rel="stylesheet" type="text/css"/>
+
+    </h:head>
+
+    <h:body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+            <header class="main-header">
+                <a href="#" class="logo">
+                    <span class="logo-lg"><b>GREEN PARK</b></span>
+                </a>
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <!-- Sidebar toggle button-->
+                    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown user user-menu">
+                                <h3 style="margin-left: 0;"></h3>
+                                <p:clock/>
+                            </li>
+                            <!--                            <li class="dropdown user user-menu">
+                                                             Menu Toggle Button <br/>
+                                                            <li><a style="cursor: pointer" onclick="PF('pdfview').show();" class="active"><i class="menu-icon fa fa-info"></i> <span>MANUAL DEL SISTEMA</span></a></li>
+                            
+                                                            <p:dialog showEffect="explode" modal="true" hideEffect="explode"  widgetVar="pdfview" resizable="false">
+                                                                <p:panel header="MANUAL DE USUARIO"><iframe src="https://www.yumpu.com/es/embed/view/b9QHGFaXlCDuNWr4" width="700px" height="500px" frameborder="0" allowfullscreen="true" allowtransparency="true"></iframe>
+                                                                </p:panel>
+                                                            </p:dialog>
+                                                        </li>-->
+
+
+                            <li class="dropdown user user-menu" >
+                                <!-- Menu Toggle Button -->
+                                <h:panelGroup rendered="#{loginC.administrador.TRABAJADOR_TIPO == 'A' ? true:false}">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <!-- The user image in the navbar-->
+                                        <img src="../../resources/icon/th.png" class="user-image" alt="User Image"/>
+                                        <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                                        <span class="hidden-xs" href="#" >ADMINISTRADOR</span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li class="user-header">
+                                            <img src="../../resources/icon/th.png" class="img-circle" alt="User Image"/>
+                                            <p>
+                                                ADMINISTRADOR
+                                                <small>5 DE NOVIEMBRE DE 2018</small>
+                                            </p>
+                                        </li>
+                                        <!-- Menu Body -->
+                                        <li class="user-body">
+                                            <!--                                        <div class="row">
+                                                                                        <div class="col-xs-4 text-center">
+                                                                                            <a href="#">Followers</a>
+                                                                                        </div>
+                                                                                        <div class="col-xs-4 text-center">
+                                                                                            <a href="#">Sales</a>
+                                                                                        </div>
+                                                                                        <div class="col-xs-4 text-center">
+                                                                                            <a href="#">Friends</a>
+                                                                                        </div>
+                                                                                    </div>-->
+
+
+                                        </li>
+                                        <li class="user-footer">
+                                            <!--                                        <div class="pull-left">
+                                                                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                                                                        
+                                                                                    </div>-->
+                                            <div class="pull-right">
+                                                <!--<a href="#" class="btn btn-default btn-flat">Sign out</a>-->
+                                                <a href="#"> <h:form><h:commandLink value="Cerrar Session"  class="fa fa-reply button button2"  actionListener="#{loginC.finishSession()}"/></h:form> </a>
+
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </h:panelGroup> 
+                            </li>
+
+                            <li class="dropdown user user-menu" >
+                                <!-- Menu Toggle Button -->
+                                <h:panelGroup rendered="#{loginC.administrador.TRABAJADOR_TIPO == 'C' ? true:false}">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <!-- The user image in the navbar-->
+                                        <img src="../../resources/icon/th.png" class="user-image" alt="User Image"/>
+                                        <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                                        <span class="hidden-xs" href="#">USUARIO</span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li class="user-header">
+                                            <img src="../../resources/icon/th.png" class="img-circle" alt="User Image"/>
+                                            <p>
+                                                USUARIO
+                                                <small>5 DE NOVIEMBRE DE 2018</small>
+                                            </p>
+                                        </li>
+                                        <!-- Menu Body -->
+                                        <li class="user-body">
+                                            <!--                                        <div class="row">
+                                                                                        <div class="col-xs-4 text-center">
+                                                                                            <a href="#">Followers</a>
+                                                                                        </div>
+                                                                                        <div class="col-xs-4 text-center">
+                                                                                            <a href="#">Sales</a>
+                                                                                        </div>
+                                                                                        <div class="col-xs-4 text-center">
+                                                                                            <a href="#">Friends</a>
+                                                                                        </div>
+                                                                                    </div>-->
+
+
+                                        </li>
+                                        <li class="user-footer">
+                                            <!--                                        <div class="pull-left">
+                                                                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                                                                        
+                                                                                    </div>-->
+                                            <div class="pull-right">
+                                                <!--<a href="#" class="btn btn-default btn-flat">Sign out</a>-->
+                                                <a href="#"> <h:form><h:commandLink  value="Cerrar Session"  class="fa fa- button button2"  actionListener="#{loginC.finishSession()}"/></h:form> </a>
+
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </h:panelGroup>
+                            </li>
+
+
+
+                            <!-- INACTIVOS -->
+
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <aside class="main-sidebar">
+                <section class="sidebar">
+                    <div class="user-panel">
+                        <div class="pull-left image">
+                            <img width="400px;" src="../imagenes/registro.png" class="img-circle" alt="User Image"/>
+                        </div>
+                        <br/><br/><br/><br/><br/><br/>
+                        <div class="pull-left info">
+                            <center><p>GREEN PARK</p></center>
+                        </div>
+                    </div>
+
+                    <ul class="sidebar-menu" data-widget="tree">
+                        <li class="header">SECCIONES</li>
+                        <!-- Optionally, you can add icons to the links -->
+                        <!--<li ><a href="#"><i class="fa fa-link"></i> <span>DASHBOARD</span></a></li>-->
+
+
+                        <li><a href="../template/MensajeUsuario.xhtml"><i class="fa fa-link"></i> <span>INICIO</span></a></li>
+                        <li><a href="../maestros/administrador.xhtml"><i class="fa fa-link"></i> <span>ADMINISTRADOR</span></a></li>
+                        <li><a href="../maestros/cancha.xhtml"><i class="fa fa-link"></i> <span>CANCHA</span></a></li>
+                        <li><a href="../maestros/producto.xhtml"><i class="fa fa-link"></i> <span>PRODUCTO</span></a></li>
+                        <li><a href="../maestros/proveedor.xhtml"><i class="fa fa-link"></i> <span>PROVEEDOR</span></a></li>
+                        <li><a href="../maestros/cliente.xhtml"><i class="fa fa-link"></i> <span>CLIENTE</span></a></li>
+                        <li><a href="../maestros/reserva.xhtml"><i class="fa fa-link"></i> <span>RESERVA</span></a></li>
+                        <li><a href="../maestros/empleado.xhtml"><i class="fa fa-link"></i> <span>EMPLEADO</span></a></li>
+
+                        <!--<li class="header">MANUAL DEL SISTEMA</li>-->
+                    </ul>
+                    <!-- /.sidebar-menu -->
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <!--                <section class="content-header">
+                                    <h1>
+                                        Page Header
+                                        <small>Optional description</small>
+                                    </h1>
+                                    <ol class="breadcrumb">
+                                        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+                                        <li class="active">Here</li>
+                                    </ol>
+                                </section>-->
+
+                <!-- Main content -->
+                <section class="content container-fluid">
+                    <div class="main">
+                        <div class="main-content" style="background: #f7f9ff;">
+
+                            <ui:insert name="contenido"></ui:insert>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+
+
+
+            <!-- Control Sidebar -->
+
+            <!-- /.control-sidebar -->
+            <!-- Add the sidebar's background. This div must be placed
+            immediately after the control sidebar -->
+            <div class="control-sidebar-bg"></div>
+        </div>
+        <!-- ./wrapper -->
+
+        <!-- REQUIRED JS SCRIPTS -->
+
+        <!-- jQuery 3 -->
+        <!--<script src="../../resources/TEMPLATE/bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>-->
+        <script src="../../resources/TEMPLATE/bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="../../resources/TEMPLATE/dist/js/adminlte.min.js" type="text/javascript"></script>
+    </h:body>
+
+</html>

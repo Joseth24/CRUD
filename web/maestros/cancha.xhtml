@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Cancha</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../template/Template1.xhtml">
+            <ui:define name="contenido">
+
+
+
+                <p:growl id="msg" life="1500" autoUpdate="true"/>
+                <h:form id="FrmAgregarCentro">
+                    <center>
+                        <h1>CANCHA</h1>
+
+                        <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank">
+                            <p:outputLabel value="NOMBRE DE CANCHA:" />
+                            <p:inputText value="#{canchaC.cancha.CANCHA_NOMBRE}" style="width: 250px"/> 
+                            <p:outputLabel value="TIPO:" />
+                            <p:selectOneMenu id="console" value="#{canchaC.cancha.CANCHA_TIPO}" style="width:125px">
+                                <f:selectItem itemLabel="Seleccione" />
+                                <f:selectItem itemLabel="Estadio" itemValue="E" />
+                                <f:selectItem itemLabel="Sintetico" itemValue="S" />
+                                <f:selectItem itemLabel="Losa" itemValue="L" />
+                            </p:selectOneMenu>
+
+                        </p:panelGrid>
+
+                        <br/>
+                        <center>
+                            <p:panelGrid columns="1" styleClass="ui-panelgrid-blank">
+                                <p:commandButton id="btn_agregar" style="width: 200px" value="AGREGAR" actionListener="#{canchaC.registrar()}" update="FrmAgregarCentro FrmListarCentro"/>
+                            </p:panelGrid>  
+                        </center>
+                    </center>
+                    <br/>
+                </h:form>
+                <br/>
+                <br/>
+
+                <h:form id="FrmListarCentro">
+                    <p:dataTable         id="listarCentro" 
+                                         value="#{canchaC.lstCancha}"
+                                         var="cancha"
+                                         selection="#{canchaC.selectCancha}"
+                                         selectionMode="single"
+                                         rowKey="#{cancha.CANCHA_ID}"
+                                         rows="10"
+                                         widgetVar="tblCentroFiltro"
+                                         paginator="true"
+                                         paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15" reflow="true">
+                        <f:facet name="header">
+                            <h3>DATOS</h3>
+                        </f:facet>
+                        <p:column headerText="NOMBRE DE CANCHA:" style="font-weight: 600">
+                            <p:outputLabel value="#{cancha.CANCHA_NOMBRE}" style="font-weight: normal"/>
+                        </p:column>
+                        <p:column headerText="TIPO DE ESTADIO" style="font-weight: 600">
+                            <p:outputLabel value="#{cancha.CANCHA_TIPO}" style="font-weight: normal"/>
+                        </p:column>
+                    </p:dataTable>
+                    <p:contextMenu for="listarCentro" >
+                        <p:menuitem value="Modificar" onclick="PF('dlgModCentro').show()" update="FormModificarCentro"/>
+                        <p:menuitem id="btn_eliminar" value="Eliminar" actionListener="#{canchaC.eliminar()}" update="listarCentro">
+                            <p:confirm header="Confirmación" message="¿Estás seguro de Eliminar?" icon="ui-icon-alert"/>
+                        </p:menuitem>
+                    </p:contextMenu>
+                </h:form>
+                <p:dialog header="Modificar Datos" widgetVar="dlgModCentro">
+                    <h:form id="FormModificarCentro">
+                        <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">                                     
+                            <p:outputLabel value="NOMBRE DE CANCHA:" />
+                            <p:inputText value="#{canchaC.selectCancha.CANCHA_NOMBRE}" style="width: 250px"/> 
+                            <p:outputLabel value="TIPO DE CANCHA:" />
+                            <p:inputText value="#{canchaC.selectCancha.CANCHA_TIPO}" style="width: 250px"/> 
+                        </p:panelGrid>
+                        <br/>
+                        <center>
+                            <p:commandButton id="btn_modificar"  style="margin-bottom: 15px;width: 200px" value="Modificar" actionListener="#{canchaC.modificar()}" update="FrmListarCentro FrmAgregarCentro" onclick="PF('dlgModCentro').hide()"/>
+                            <p:commandButton style="width: 200px" value="Cancelar" onclick="PF('dlgModCentro').hide()"/>
+                        </center>
+                    </h:form>
+
+                </p:dialog>
+                <h:form>
+                    <p:confirmDialog global="true">
+                        <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                        <p:commandButton value="No" styleClass="ui-confirmdialog-no" icon="fa fa-close"/>
+                    </p:confirmDialog>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

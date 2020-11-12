@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Reserva</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../template/Template1.xhtml">
+            <ui:define name="contenido">
+
+
+                <p:growl id="msg" life="1500" autoUpdate="true"/>
+                <h:form id="FrmAgregarCentro">
+                    <center>
+                        <h1>RESERVA</h1>
+
+                        <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank">
+                            <p:outputLabel value="HORA DE INICIO" />
+                            <p:inputMask value="#{reservaC.reserva.RESERVA_HORA_INICIO}" style="width: 250px" mask="99:99" required="true" requiredMessage="CAMPO OBLIGATORIO"/>
+                            <p:outputLabel value="HORA FIN" />
+                            <p:inputMask value="#{reservaC.reserva.RESERVA_HORA_FIN}" style="width: 250px" mask="99:99" required="true" requiredMessage="CAMPO OBLIGATORIO"/>
+                            <p:outputLabel value="DIA" />
+                            <p:inputMask value="#{reservaC.reserva.RESERVA_DIA}" style="width: 250px" mask="9999/99/99" required="true" requiredMessage="CAMPO OBLIGATORIO"/>
+                            <p:outputLabel value="CLIENTE" />
+                            <p:autoComplete value="#{reservaC.reserva.CLIENTE_CLIENTE_ID}"
+                                            completeMethod="#{reservaC.completeCliente}"
+                                            maxResults="6"
+                                            emptyMessage="Sin resultados"
+                                            dropdown="true"/>
+                            <p:outputLabel value="PAGO" />
+                            <p:inputText value="#{reservaC.reserva.RESERVA_PAGO}" style="width: 250px" required="true" requiredMessage="CAMPO OBLIGATORIO"/>
+                            <p:outputLabel value="MONTO" />
+                            <p:inputText value="#{reservaC.reserva.RESERVA_MONTO}" style="width: 250px" required="true" requiredMessage="CAMPO OBLIGATORIO"/>
+                            <p:outputLabel value="EMPLEADO" />
+                            <p:autoComplete value="#{reservaC.reserva.EMPLEADO_EMPLEADO_ID}"
+                                            completeMethod="#{reservaC.completeEmpleado}"
+                                            maxResults="6"
+                                            emptyMessage="Sin resultados"
+                                            dropdown="true"/>
+                            <p:outputLabel value="PRODUCTO" />
+                            <p:autoComplete value="#{reservaC.reserva.PRODUCTO_PRODUCTO_ID}"
+                                            completeMethod="#{reservaC.completeProducto}"
+                                            maxResults="6"
+                                            emptyMessage="Sin resultados"
+                                            dropdown="true"/>
+                            <p:outputLabel value="TIPO DE CANCHA" />
+                            <p:autoComplete value="#{reservaC.reserva.CANCHA_CANCHA_ID}"
+                                            completeMethod="#{reservaC.completeCancha}"
+                                            maxResults="6"
+                                            emptyMessage="Sin resultados"
+                                            dropdown="true"/>
+                            <p:outputLabel value="CANTIDAD DE PRODUCTO" />
+                            <p:inputText value="#{reservaC.reserva.PRODUCTO_CANTIDAD}" style="width: 250px" required="true" requiredMessage="CAMPO OBLIGATORIO"/>
+
+
+
+
+
+                        </p:panelGrid>
+
+                        <br/>
+                        <center>
+                            <p:panelGrid columns="1" styleClass="ui-panelgrid-blank">
+                                <p:commandButton id="btn_agregar" style="width: 200px" value="AGREGAR" actionListener="#{reservaC.registrar()}" update="FrmAgregarCentro FrmListarCentro"/>
+                            </p:panelGrid>  
+                        </center>
+                    </center>
+                    <br/>
+                </h:form>
+                <br/>
+                <br/>
+
+                <h:form id="FrmListarCentro">
+                    <p:dataTable         id="listarCentro" 
+                                         value="#{reservaC.lstReserva}"
+                                         var="reserva"
+                                         selection="#{reservaC.selectReserva}"
+                                         selectionMode="single"
+                                         rowKey="#{reserva.RESERVA_ID}"
+                                         rows="10"
+                                         widgetVar="tblCentroFiltro"
+                                         paginator="true"
+                                         paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15" reflow="true">
+                        <f:facet name="header">
+                            <h3>DATOS</h3>
+                        </f:facet>
+                        <p:column headerText="HORA DE RESERVA" style="font-weight: 600">
+                            <p:outputLabel value="#{reserva.RESERVA_HORA_INICIO}" style="font-weight: normal"/>
+                        </p:column>
+                        <p:column headerText="HORA FIN" style="font-weight: 600">
+                            <p:outputLabel value="#{reserva.RESERVA_HORA_FIN}" style="font-weight: normal"/>
+                        </p:column>
+
+                        <p:column headerText="DIA" style="font-weight: 600">
+                            <p:outputLabel value="#{reserva.RESERVA_DIA}" style="font-weight: normal"/>
+                        </p:column>
+
+                        <p:column headerText="CLIENTE" style="font-weight: 600">
+                            <p:outputLabel value="#{reserva.CLIENTE_CLIENTE_ID}" style="font-weight: normal"/>
+                        </p:column>
+
+                        <p:column headerText="PAGO" style="font-weight: 600">
+                            <p:outputLabel value="#{reserva.RESERVA_PAGO}" style="font-weight: normal"/>
+                        </p:column>
+
+                        <p:column headerText="MONTO" style="font-weight: 600">
+                            <p:outputLabel value="#{reserva.RESERVA_MONTO}" style="font-weight: normal"/>
+                        </p:column>
+
+                        <p:column headerText="EMPLEADO" style="font-weight: 600">
+                            <p:outputLabel value="#{reserva.EMPLEADO_EMPLEADO_ID}" style="font-weight: normal"/>
+                        </p:column>
+
+                        <p:column headerText="PRODUCTO" style="font-weight: 600">
+                            <p:outputLabel value="#{reserva.PRODUCTO_PRODUCTO_ID}" style="font-weight: normal"/>
+                        </p:column>
+
+                        <p:column headerText="TIPO DE CANCHA" style="font-weight: 600">
+                            <p:outputLabel value="#{reserva.CANCHA_CANCHA_ID}" style="font-weight: normal"/>
+                        </p:column>
+
+                        <p:column headerText="CANTIDAD DE PRODUCTO" style="font-weight: 600">
+                            <p:outputLabel value="#{reserva.PRODUCTO_CANTIDAD}" style="font-weight: normal"/>
+                        </p:column>
+
+
+                    </p:dataTable>
+                    <p:contextMenu for="listarCentro" >
+                        <p:menuitem value="Modificar" onclick="PF('dlgModCentro').show()" update="FormModificarCentro"/>
+                        <p:menuitem id="btn_eliminar" value="Eliminar" actionListener="#{reservaC.eliminar()}" update="listarCentro">
+                            <p:confirm header="Confirmación" message="¿Estás seguro de Eliminar?" icon="ui-icon-alert"/>
+                        </p:menuitem>
+                    </p:contextMenu>
+                </h:form>
+                <p:dialog header="Modificar Datos" widgetVar="dlgModCentro">
+                    <h:form id="FormModificarCentro">
+                        <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">                                     
+                            <p:outputLabel value="HORA DE INICIO" />
+                            <p:inputMask value="#{reservaC.selectReserva.RESERVA_HORA_INICIO}" style="width: 250px" mask="99:99" required="true" requiredMessage="CAMPO OBLIGATORIO"/>
+                            <p:outputLabel value="HORA FIN" />
+                            <p:inputMask value="#{reservaC.selectReserva.RESERVA_HORA_FIN}" style="width: 250px" mask="99:99" required="true" requiredMessage="CAMPO OBLIGATORIO"/>
+                            <p:outputLabel value="DIA" />
+                            <p:inputMask value="#{reservaC.selectReserva.RESERVA_DIA}" style="width: 250px" mask="9999/99/99" required="true" requiredMessage="CAMPO OBLIGATORIO"/>
+                            <p:outputLabel value="CLIENTE" />
+                            <p:autoComplete value="#{reservaC.selectReserva.CLIENTE_CLIENTE_ID}"
+                                            completeMethod="#{reservaC.completeCliente}"
+                                            maxResults="6"
+                                            emptyMessage="Sin resultados"
+                                            dropdown="true"/>
+                            <p:outputLabel value="PAGO" />
+                            <p:inputText value="#{reservaC.selectReserva.RESERVA_PAGO}" style="width: 250px" required="true" requiredMessage="CAMPO OBLIGATORIO"/>
+                            <p:outputLabel value="MONTO" />
+                            <p:inputText value="#{reservaC.selectReserva.RESERVA_MONTO}" style="width: 250px" required="true" requiredMessage="CAMPO OBLIGATORIO"/>
+                            <p:outputLabel value="EMPLEADO" />
+                            <p:autoComplete value="#{reservaC.selectReserva.EMPLEADO_EMPLEADO_ID}"
+                                            completeMethod="#{reservaC.completeEmpleado}"
+                                            maxResults="6"
+                                            emptyMessage="Sin resultados"
+                                            dropdown="true"/>
+                            <p:outputLabel value="PRODUCTO" />
+                            <p:autoComplete value="#{reservaC.selectReserva.PRODUCTO_PRODUCTO_ID}"
+                                            completeMethod="#{reservaC.completeProducto}"
+                                            maxResults="6"
+                                            emptyMessage="Sin resultados"
+                                            dropdown="true"/>
+                            <p:outputLabel value="TIPO DE CANCHA" />
+                            <p:autoComplete value="#{reservaC.selectReserva.CANCHA_CANCHA_ID}"
+                                            completeMethod="#{reservaC.completeCancha}"
+                                            maxResults="6"
+                                            emptyMessage="Sin resultados"
+                                            dropdown="true"/>
+                            <p:outputLabel value="CANTIDAD DE PRODUCTO" />
+                            <p:inputText value="#{reservaC.selectReserva.PRODUCTO_CANTIDAD}" style="width: 250px" required="true" requiredMessage="CAMPO OBLIGATORIO"/>
+
+                        </p:panelGrid>
+                        <br/>
+                        <center>
+                            <p:commandButton id="btn_modificar"  style="margin-bottom: 15px;width: 200px" value="Modificar" actionListener="#{reservaC.modificar()}" update="FrmListarCentro FrmAgregarCentro" onclick="PF('dlgModCentro').hide()"/>
+                            <p:commandButton style="width: 200px" value="Cancelar" onclick="PF('dlgModCentro').hide()"/>
+                        </center>
+                    </h:form>
+
+                </p:dialog>
+                <h:form>
+                    <p:confirmDialog global="true">
+                        <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                        <p:commandButton value="No" styleClass="ui-confirmdialog-no" icon="fa fa-close"/>
+                    </p:confirmDialog>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Cliente</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../template/Template1.xhtml">
+            <ui:define name="contenido">
+
+                <p:growl id="msg" life="1500" autoUpdate="true"/>
+                <h:form id="FrmAgregarCentro">
+                    <center>
+                        <h1>CLIENTE</h1>
+
+                        <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank">
+                            <p:outputLabel value="NOMBRE DEL CLIENTE:" />
+                            <p:inputText value="#{clienteC.cliente.NOMBRE_CLIE}" style="width: 250px"/> 
+                            <p:outputLabel value="APELLIDOS:" />
+                            <p:inputText value="#{clienteC.cliente.APELLIDOS_CLIENTE}" style="width: 250px"/> 
+                            <p:outputLabel value="CELULAR:" />
+                            <p:inputText value="#{clienteC.cliente.CELULAR_CLIENTE}" style="width: 250px"/> 
+
+                        </p:panelGrid>
+                        <br/>
+                        <center>
+                            <p:panelGrid columns="1" styleClass="ui-panelgrid-blank">
+                                <p:commandButton id="btn_agregar" style="width: 200px" value="AGREGAR" actionListener="#{clienteC.registrar()}" update="FrmAgregarCentro FrmListarCentro"/>
+                            </p:panelGrid>  
+                        </center>
+                    </center>
+                    <br/>
+                </h:form>
+                <br/>
+                <br/>
+
+                <h:form id="FrmListarCentro">
+                    <p:dataTable         id="listarCentro" 
+                                         value="#{clienteC.lstCliente}"
+                                         var="cliente"
+                                         selection="#{clienteC.selectCliente}"
+                                         selectionMode="single"
+                                         rowKey="#{cliente.CLIENTE_ID}"
+                                         rows="10"
+                                         widgetVar="tblCentroFiltro"
+                                         paginator="true"
+                                         paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15" reflow="true">
+                        <f:facet name="header">
+                            <h3>DATOS</h3>
+                        </f:facet>
+                        <p:column headerText="NOMBRE" style="font-weight: 600">
+                            <p:outputLabel value="#{cliente.NOMBRE_CLIE}" style="font-weight: normal"/>
+                        </p:column>
+                        <p:column headerText="APELLIDOS" style="font-weight: 600">
+                            <p:outputLabel value="#{cliente.APELLIDOS_CLIENTE}" style="font-weight: normal"/>
+                        </p:column>
+                        <p:column headerText="CELULAR" style="font-weight: 600">
+                            <p:outputLabel value="#{cliente.CELULAR_CLIENTE}" style="font-weight: normal"/>
+                        </p:column>
+
+
+                    </p:dataTable>
+                    <p:contextMenu for="listarCentro" >
+                        <p:menuitem value="Modificar" onclick="PF('dlgModCentro').show()" update="FormModificarCentro"/>
+                        <p:menuitem id="btn_eliminar" value="Eliminar" actionListener="#{clienteC.eliminar()}" update="listarCentro">
+                            <p:confirm header="Confirmación" message="¿Estás seguro de Eliminar?" icon="ui-icon-alert"/>
+                        </p:menuitem>
+                    </p:contextMenu>
+                </h:form>
+                <p:dialog header="Modificar Datos" widgetVar="dlgModCentro">
+                    <h:form id="FormModificarCentro">
+                        <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">                                     
+                            <p:outputLabel value="NOMBRE:" />
+                            <p:inputText value="#{clienteC.selectCliente.NOMBRE_CLIE}" style="width: 250px"/> 
+                            <p:outputLabel value="APELLIDOS:" />
+                            <p:inputText value="#{clienteC.selectCliente.APELLIDOS_CLIENTE}" style="width: 250px"/> 
+                            <p:outputLabel value="CELULAR:" />
+                            <p:inputText value="#{clienteC.selectCliente.CELULAR_CLIENTE}" style="width: 250px"/> 
+
+                        </p:panelGrid>
+                        <br/>
+                        <center>
+                            <p:commandButton id="btn_modificar"  style="margin-bottom: 15px;width: 200px" value="Modificar" actionListener="#{clienteC.modificar()}" update="FrmListarCentro FrmAgregarCentro" onclick="PF('dlgModCentro').hide()"/>
+                            <p:commandButton style="width: 200px" value="Cancelar" onclick="PF('dlgModCentro').hide()"/>
+                        </center>
+                    </h:form>
+
+                </p:dialog>
+                <h:form>
+                    <p:confirmDialog global="true">
+                        <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                        <p:commandButton value="No" styleClass="ui-confirmdialog-no" icon="fa fa-close"/>
+                    </p:confirmDialog>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
